@@ -5,8 +5,36 @@ import { IPost } from './post.interface';
 import { Post } from './post.model';
 import { QueryBuilder } from '../../builder/QueryBuilder';
 import mongoose from 'mongoose';
+import { Request } from 'express';
+import { IAuthUser } from '../../interfaces/common';
+import { User } from '../User/user.model';
+import { log } from 'handlebars';
 
-const createPost = async (payload: IPost) => {
+const createPost = async  (req: Request & { user?: any }) => {
+
+  const exitUser = await User.findOne({ _id: req.user._id });
+  console.log(exitUser);
+  
+
+  if (!exitUser) {
+    throw new Error('User not found');
+  }
+
+
+  let imagesUpload: string[] = [];
+
+  if (Array.isArray(req?.files)) {
+    imagesUpload = req.files.map((file: any) => file?.path) || [];
+  }
+
+
+const payload = {
+  ...JSON.parse(req.body.data),
+  user: req.user._id,
+  images: imagesUpload,
+}
+
+
   const post = await Post.create(payload);
 
   return post;

@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post(
   '/create-post',
-  multerUpload.array('images',5),
+  multerUpload.array('files',5),
   auth(USER_ROLE.USER,USER_ROLE.ADMIN),
   
   PostControllers.createPostIntoDB
@@ -20,7 +20,7 @@ router.post(
 
 router.patch(
   '/update-post/:id',
-  multerUpload.array('images',5),
+  multerUpload.array('files',5),
   auth(USER_ROLE.USER,USER_ROLE.ADMIN),
   
   PostControllers.updateAPost

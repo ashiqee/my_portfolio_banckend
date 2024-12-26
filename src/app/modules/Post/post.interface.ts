@@ -5,6 +5,9 @@ export interface IPost extends Document {
   user: ObjectId;
   title:string;
   description?: string;
+  startDate?: Date;
+  endDate?: Date;
+  links?: ILink[];
   video?: string;
   images?: string[];
   isPremium: boolean;
@@ -30,5 +33,9 @@ export interface IComment extends Document {
   post: ObjectId;
   commentText: string;
   replies?: IReplies[];
+ }
+export interface ILink extends Document {
+  label: string;
+  url?: string;
  }
 

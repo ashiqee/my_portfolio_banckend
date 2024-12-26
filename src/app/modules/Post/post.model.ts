@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IComment, IPost, IReplies } from './post.interface';
+import { IComment, ILink, IPost, IReplies } from './post.interface';
 
 
 
@@ -44,6 +44,19 @@ const commentSchema = new Schema<IComment>(
     virtuals: true,
   }
 );
+const linkSchema = new Schema<ILink>(
+  {
+    label: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+    },
+  },
+  
+  
+);
 
 // Post Schemaa
 
@@ -66,7 +79,9 @@ const postSchema = new Schema<IPost>({
   tags:{
     type: [String],
   },
-
+  startDate: { type: Date},
+  endDate: { type: Date },
+  links: [linkSchema],
   video: { type: String },
   images: [{ type: String }],
   isPremium: { type: Boolean, default: false },
