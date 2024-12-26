@@ -25,7 +25,7 @@ app.use('/api/v1', routes);
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.status(httpStatus.OK).json({
     success: true,
-    message: 'Welcome to Travel Tips API',
+    message: 'Welcome to Ashiq Mahmud Protfolio API',
   });
 });
 
