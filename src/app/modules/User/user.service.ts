@@ -29,9 +29,18 @@ const getSingleUserFromDB = async (id: string) => {
 };
 
 
+const updateUser = async (id: string, payload: Partial<TUser>) => {
+  const user = await User.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+
+  return user;
+};
+
 
 export const UserServices = {
   createUser,
   getAllUsersFromDB,
-  getSingleUserFromDB
+  getSingleUserFromDB,
+  updateUser
 };

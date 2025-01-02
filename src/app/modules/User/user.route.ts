@@ -18,6 +18,8 @@ router.post(
 router.get('/', UserControllers.getAllUsers);
 router.get('/:id', UserControllers.getSingleUser);
 
+router.put('/:id', auth(USER_ROLE.ADMIN), UserControllers.updateUser);
+
 
 
 
