@@ -5,7 +5,7 @@ import httpStatus from "http-status";
 import { USER_STATUS } from "../User/user.constant";
 import { TImageFile } from "../../interfaces/image.interface";
 import { TUserProfileUpdate } from "./profile.interface";
-import { Post } from "../Post/post.model";
+import { Post } from "../ProjectPost/post.model";
 import { PremiumProfile } from "./profile.model";
 import { initiatePayment } from "../Payment/payment.utils";
 

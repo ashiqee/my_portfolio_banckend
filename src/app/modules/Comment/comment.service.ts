@@ -1,6 +1,6 @@
 
 import { JwtPayload } from "jsonwebtoken";
-import { Comment, Post } from "../Post/post.model";
+import { Comment, Post } from "../ProjectPost/post.model";
 
 
 

@@ -2,10 +2,11 @@ import express from 'express';
 import { AuthRoutes } from '../modules/Auth/auth.route';
 import { UserRoutes } from '../modules/User/user.route';
 import { ProfileRoutes } from '../modules/Profile/profile.route';
-import { PostRoutes } from '../modules/Post/post.route';
+import {  ProjectPostRoutes } from '../modules/ProjectPost/post.route';
 import { FollowRoutes } from '../modules/Follow/follow.route';
 import { CommentsRoutes } from '../modules/Comment/comment.route';
 import { PaymentRoutes } from '../modules/Payment/payment.route';
+import { BlogPostRoutes } from '../modules/BlogPost/post.route';
 
 
 const router = express.Router();
@@ -25,7 +26,11 @@ const moduleRoutes = [
   },
   {
     path: '/posts',
-    route: PostRoutes,
+    route: ProjectPostRoutes,
+  },
+  {
+    path: '/blogs',
+    route: BlogPostRoutes, // Use BlogPostRoutes,
   },
   {
     path: '/follow',

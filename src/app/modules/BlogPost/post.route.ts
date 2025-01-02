@@ -44,4 +44,4 @@ router.get('/my/:id', auth(USER_ROLE.USER,USER_ROLE.ADMIN), PostControllers.getM
 router.put('/upvote', auth(USER_ROLE.USER) , PostControllers.upvotePostInPost)
 router.put('/downvote', auth(USER_ROLE.USER) , PostControllers.downVotesPostInPost)
 
-export const PostRoutes = router;
+export const BlogPostRoutes = router;
