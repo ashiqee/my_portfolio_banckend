@@ -5,6 +5,77 @@ import config from '../../config';
 import { USER_ROLE, USER_STATUS } from './user.constant';
 import { IUserModel, TUser } from './user.interface';
 
+
+const skillsSchema = new Schema({
+  skillName: {
+    type: String,
+    required: true,
+  },
+  skillPercentage: {
+    type: Number,
+    
+  },
+  iconUrl: {
+    type: String,
+  }
+});
+
+
+const educationSchema = new Schema({
+  degree: {
+    type: String,
+    required: true,
+  },
+  institution: {
+    type: String,
+    required: true,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  endDate: {
+    type: Date,
+  },
+  description: {
+    type: String,
+  },
+  iconUrl: {
+    type: String,
+  },
+  point: {
+    type: Number,
+  }
+}); 
+  
+
+const experienceSchema = new Schema({
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  company: {
+    type: String,
+    required: true,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  endDate: {
+    type: Date,
+  },
+  description: {
+    type: String,
+  },
+  iconUrl: {
+    type: String,
+  },
+  expertises: {
+    type: [String],
+  }
+})
+
 const userSchema = new Schema<TUser, IUserModel>(
   {
     name: {
@@ -52,6 +123,9 @@ const userSchema = new Schema<TUser, IUserModel>(
       type: String,
       default: null
     },
+    skills:[skillsSchema],
+    education:[educationSchema],
+    experience:[experienceSchema],
     isVerified:{
       type: Boolean,
       default:false,

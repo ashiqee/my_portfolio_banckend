@@ -2,6 +2,32 @@
 import { Model } from 'mongoose';
 import { USER_ROLE, USER_STATUS } from './user.constant';
 
+export type TSkills = {
+  skillName: string;
+  skillPercentage?: string;  
+  iconUrl?: string;
+};
+
+export type TEducation = {
+  degree: string;
+  institution: string;
+  startDate: Date;
+  endDate?: Date;
+  description?: string;
+  iconUrl?: string;
+  point?: string;
+};
+
+export type TExperience = {
+  jobTitle: string;
+  company: string;
+  startDate: Date;
+  endDate?: Date;
+  description?: string;
+  iconUrl?: string;
+  expertises?: string[];
+}
+
 export type TUser = {
   _id?: string;
   name: string;
@@ -14,6 +40,9 @@ export type TUser = {
   passwordChangedAt?: Date;
   mobileNumber?: string;
   profilePhoto?: string;
+  skills?: TSkills[];
+  education?: TEducation[];
+  experience?: TExperience[];
   follow?:string[];
   followers?:string[];
   blockUser?:string[];

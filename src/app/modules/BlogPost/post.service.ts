@@ -2,13 +2,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import { IPost } from './post.interface';
-import { Post } from './post.model';
+
 import { QueryBuilder } from '../../builder/QueryBuilder';
 import mongoose from 'mongoose';
 import { Request } from 'express';
 import { IAuthUser } from '../../interfaces/common';
 import { User } from '../User/user.model';
 import { log } from 'handlebars';
+import { BlogPost } from './post.model';
 
 const createPost = async  (req: Request & { user?: any }) => {
 
@@ -34,13 +35,13 @@ const payload = {
 }
 
 
-  const post = await Post.create(payload);
+  const post = await BlogPost.create(payload);
 
   return post;
 };
 
 const getAllPostsFromDB = async (query: Record<string, unknown>) => {
-  const postsQuery = new QueryBuilder(Post.find(), query)
+  const postsQuery = new QueryBuilder(BlogPost.find(), query)
     .fields()
     .paginate()
     .filter()
@@ -83,7 +84,7 @@ const getAllPostsFromDB = async (query: Record<string, unknown>) => {
 // debounce and optimze search 
 const searchPosts = async (query: Record<string, unknown>) => {
   try {
-    const queryBuilder = new QueryBuilder(Post.find(), query);
+    const queryBuilder = new QueryBuilder(BlogPost.find(), query);
 
     // Build the search query using QueryBuilder
     const postsQuery = queryBuilder
@@ -114,7 +115,7 @@ const searchPosts = async (query: Record<string, unknown>) => {
 
 
 const getAPostFromDB = async (id: string) => {
-  const posts = await Post.findById(id).populate('user');
+  const posts = await BlogPost.findById(id).populate('user');
 
   return posts;
 };
@@ -124,7 +125,7 @@ const getAPostFromDB = async (id: string) => {
 // get post categoris
 const getPostCategories = async () => {
 
-   const categories = await Post.distinct('category');
+   const categories = await BlogPost.distinct('category');
 
   return categories;
 };
@@ -133,7 +134,7 @@ const deleteAPostFromDB = async (id: string) => {
 
 
   
-  const posts = await Post.deleteOne({_id:id});
+  const posts = await BlogPost.deleteOne({_id:id});
 
   return posts;
 };
@@ -165,7 +166,7 @@ const updateAPostFromDB = async (
     throw new Error("No valid fields to update");
   }
   
-  const posts = await Post.findOneAndUpdate(
+  const posts = await BlogPost.findOneAndUpdate(
     { _id: id },
     { ...filteredPayload },
     { new: true }
@@ -176,12 +177,12 @@ const updateAPostFromDB = async (
 
 const getMyPostFormDB = async (query: Record<string, unknown>, id: string) => {
   try {
-    let postsQuery = Post.find({ user: id }).populate(
+    let postsQuery = BlogPost.find({ user: id }).populate(
       'user',
       'name profilePhoto isVerified'
     );
 
-    postsQuery = new QueryBuilder(Post.find(), query).build()
+    postsQuery = new QueryBuilder(BlogPost.find(), query).build()
 
     const posts = await postsQuery.exec();
 
@@ -199,20 +200,20 @@ const upvotePost = async (postId: string, userId: string) => {
   session.startTransaction();
 
   try {
-    const post = await Post.findById(postId).session(session);
+    const post = await BlogPost.findById(postId).session(session);
 
     if (!post) {
-      throw new Error('Post not found');
+      throw new Error('BlogPost not found');
     }
 
     if (post.upVotes.includes(userId)) {
-      await Post.updateOne(
+      await BlogPost.updateOne(
         { _id: postId },
         { $pull: { upVotes: userId } },
         { session }
       );
     } else {
-      await Post.updateOne(
+      await BlogPost.updateOne(
         { _id: postId },
         {
           $pull: { downVotes: userId },
@@ -237,20 +238,20 @@ const downVotesPost = async (postId: string, userId: string) => {
   session.startTransaction();
 
   try {
-    const post = await Post.findById(postId).session(session);
+    const post = await BlogPost.findById(postId).session(session);
 
     if (!post) {
-      throw new Error('Post not found');
+      throw new Error('BlogPost not found');
     }
 
     if (post.downVotes.includes(userId)) {
-      await Post.updateOne(
+      await BlogPost.updateOne(
         { _id: postId },
         { $pull: { downVotes: userId } },
         { session }
       );
     } else {
-      await Post.updateOne(
+      await BlogPost.updateOne(
         { _id: postId },
         {
           $pull: { upVotes: userId },
