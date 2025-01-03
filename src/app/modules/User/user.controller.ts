@@ -48,6 +48,76 @@ const updateUser = catchAsync(async (req, res) => {
   });
 });
 
+const addSkills = catchAsync(async (req, res) => {
+  const result = await UserServices.addSkills(req.params.id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Add skill Successfully',
+    data: result,
+  });
+});
+
+const updateSkill = catchAsync(async (req, res) => {
+  const {skillId,...updatedSkill}= req.body;
+  const result = await UserServices.updateSkill(req.params.id, skillId, updatedSkill);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Update skill Successfully',
+    data: result,
+  });
+});
+
+const deleteSkill = catchAsync(async (req, res) => {
+  const {skillId}= req.body;
+  const result = await UserServices.deleteSkill(req.params.id, skillId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Delete skill Successfully',
+    data: result,
+  });
+});
+
+const addEducation= catchAsync(async (req, res) => {
+  const result = await UserServices.addEducation(req.params.id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Add Education Successfully',
+    data: result,
+  });
+});
+
+const updateEducation = catchAsync(async (req, res) => {
+  const {educationId,...updateEducation}= req.body;
+  const result = await UserServices.updateEducation(req.params.id, educationId, updateEducation);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Update Education Successfully',
+    data: result,
+  });
+});
+
+const deleteEducation = catchAsync(async (req, res) => {
+  const {educationId}= req.body;
+  const result = await UserServices.deleteEducation(req.params.id, educationId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Delete Education Successfully',
+    data: result,
+  });
+});
+
 
 export const UserControllers = {
   getSingleUser,

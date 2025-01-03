@@ -128,5 +128,17 @@ export const UserServices = {
   createUser,
   getAllUsersFromDB,
   getSingleUserFromDB,
-  updateUser
+  updateUser,
+
+  addSkills,
+  addEducation,
+  addExperience,
+
+  updateSkill,
+  updateEducation,
+  updateExperience,
+
+  deleteSkill,
+  deleteEducation,
+  deleteExperience
 };
