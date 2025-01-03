@@ -118,11 +118,60 @@ const deleteEducation = catchAsync(async (req, res) => {
   });
 });
 
+const addExperience= catchAsync(async (req, res) => {
+  const result = await UserServices.addExperience(req.params.id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Add Expreience Successfully',
+    data: result,
+  });
+});
+
+const updateExperience = catchAsync(async (req, res) => {
+  const {experienceId,...updateExperience}= req.body;
+  const result = await UserServices.updateExperience(req.params.id, experienceId, updateExperience);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Update Experience Successfully',
+    data: result,
+  });
+});
+
+const deleteExperience = catchAsync(async (req, res) => {
+  const {experienceId}= req.body;
+  const result = await UserServices.deleteExperience(req.params.id, experienceId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Delete Experience Successfully',
+    data: result,
+  });
+});
+
+
+
 
 export const UserControllers = {
   getSingleUser,
   userRegister,
   getAllUsers,
-  updateUser
+  updateUser,
+
+  addSkills,  
+  updateSkill,
+  deleteSkill,
+
+  addEducation,
+  updateEducation,
+  deleteEducation,
+
+  addExperience,
+  updateExperience,
+  deleteExperience
   
 };
