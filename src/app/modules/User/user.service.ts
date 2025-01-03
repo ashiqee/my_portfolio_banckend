@@ -23,11 +23,13 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleUserFromDB = async (id: string) => {
-  const user = await User.findById(id).populate("follow followers","name profilePhoto");
+  const user = await User.findById(id).populate(
+    'follow followers',
+    'name profilePhoto'
+  );
 
   return user;
 };
-
 
 const updateUser = async (id: string, payload: Partial<TUser>) => {
   const user = await User.findOneAndUpdate({ _id: id }, payload, {
@@ -36,7 +38,6 @@ const updateUser = async (id: string, payload: Partial<TUser>) => {
 
   return user;
 };
-
 
 // Add skills, education, or experience
 export const addSkills = async (id: string, skills: TSkills[]) => {
@@ -67,7 +68,11 @@ export const addExperience = async (id: string, experience: TExperience) => {
 };
 
 // Update specific skills, education, or experience
-export const updateSkill = async (id: string, skillId: string, updatedSkill: Partial<TSkills>) => {
+export const updateSkill = async (
+  id: string,
+  skillId: string,
+  updatedSkill: Partial<TSkills>
+) => {
   const user = await User.findOneAndUpdate(
     { _id: id, 'skills._id': skillId },
     { $set: { 'skills.$': updatedSkill } },
@@ -76,7 +81,11 @@ export const updateSkill = async (id: string, skillId: string, updatedSkill: Par
   return user;
 };
 
-export const updateEducation = async (id: string, educationId: string, updatedEducation: Partial<TEducation>) => {
+export const updateEducation = async (
+  id: string,
+  educationId: string,
+  updatedEducation: Partial<TEducation>
+) => {
   const user = await User.findOneAndUpdate(
     { _id: id, 'education._id': educationId },
     { $set: { 'education.$': updatedEducation } },
@@ -85,7 +94,11 @@ export const updateEducation = async (id: string, educationId: string, updatedEd
   return user;
 };
 
-export const updateExperience = async (id: string, experienceId: string, updatedExperience: Partial<TExperience>) => {
+export const updateExperience = async (
+  id: string,
+  experienceId: string,
+  updatedExperience: Partial<TExperience>
+) => {
   const user = await User.findOneAndUpdate(
     { _id: id, 'experience._id': experienceId },
     { $set: { 'experience.$': updatedExperience } },
@@ -122,8 +135,6 @@ export const deleteExperience = async (id: string, experienceId: string) => {
   return user;
 };
 
-
-
 export const UserServices = {
   createUser,
   getAllUsersFromDB,
@@ -140,5 +151,5 @@ export const UserServices = {
 
   deleteSkill,
   deleteEducation,
-  deleteExperience
+  deleteExperience,
 };

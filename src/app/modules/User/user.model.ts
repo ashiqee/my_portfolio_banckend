@@ -5,7 +5,6 @@ import config from '../../config';
 import { USER_ROLE, USER_STATUS } from './user.constant';
 import { IUserModel, TUser } from './user.interface';
 
-
 const skillsSchema = new Schema({
   skillName: {
     type: String,
@@ -13,13 +12,11 @@ const skillsSchema = new Schema({
   },
   skillPercentage: {
     type: Number,
-    
   },
   iconUrl: {
     type: String,
-  }
+  },
 });
-
 
 const educationSchema = new Schema({
   degree: {
@@ -45,9 +42,8 @@ const educationSchema = new Schema({
   },
   point: {
     type: Number,
-  }
-}); 
-  
+  },
+});
 
 const experienceSchema = new Schema({
   jobTitle: {
@@ -73,8 +69,8 @@ const experienceSchema = new Schema({
   },
   expertises: {
     type: [String],
-  }
-})
+  },
+});
 
 const userSchema = new Schema<TUser, IUserModel>(
   {
@@ -113,37 +109,35 @@ const userSchema = new Schema<TUser, IUserModel>(
       type: String,
       required: true,
     },
-    
-      address:{
-        type:String,
-        
-      }
-    ,
+
+    address: {
+      type: String,
+    },
     profilePhoto: {
       type: String,
-      default: null
+      default: null,
     },
-    skills:[skillsSchema],
-    education:[educationSchema],
-    experience:[experienceSchema],
-    isVerified:{
+    skills: [skillsSchema],
+    education: [educationSchema],
+    experience: [experienceSchema],
+    isVerified: {
       type: Boolean,
-      default:false,
+      default: false,
     },
-     follow:{
+    follow: {
       type: [Schema.Types.ObjectId],
-      ref:"User",
-      default:[],
+      ref: 'User',
+      default: [],
     },
-    followers:{
+    followers: {
       type: [Schema.Types.ObjectId],
-      ref:"User",
-      default:[],
+      ref: 'User',
+      default: [],
     },
-    blockUser:{
+    blockUser: {
       type: [Schema.Types.ObjectId],
-      ref:"User",
-      default:[],
+      ref: 'User',
+      default: [],
     },
   },
   {
@@ -171,7 +165,7 @@ userSchema.post('save', function (doc, next) {
   next();
 });
 
-// check user exiting 
+// check user exiting
 userSchema.statics.isUserExistsByEmail = async function (email: string) {
   return await User.findOne({ email }).select('+password');
 };

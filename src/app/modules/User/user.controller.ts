@@ -36,7 +36,6 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
-
 const updateUser = catchAsync(async (req, res) => {
   const user = await UserServices.updateUser(req.params.id, req.body);
 
@@ -60,8 +59,12 @@ const addSkills = catchAsync(async (req, res) => {
 });
 
 const updateSkill = catchAsync(async (req, res) => {
-  const {skillId,...updatedSkill}= req.body;
-  const result = await UserServices.updateSkill(req.params.id, skillId, updatedSkill);
+  const { skillId, ...updatedSkill } = req.body;
+  const result = await UserServices.updateSkill(
+    req.params.id,
+    skillId,
+    updatedSkill
+  );
 
   sendResponse(res, {
     success: true,
@@ -72,7 +75,7 @@ const updateSkill = catchAsync(async (req, res) => {
 });
 
 const deleteSkill = catchAsync(async (req, res) => {
-  const {skillId}= req.body;
+  const { skillId } = req.body;
   const result = await UserServices.deleteSkill(req.params.id, skillId);
 
   sendResponse(res, {
@@ -83,7 +86,7 @@ const deleteSkill = catchAsync(async (req, res) => {
   });
 });
 
-const addEducation= catchAsync(async (req, res) => {
+const addEducation = catchAsync(async (req, res) => {
   const result = await UserServices.addEducation(req.params.id, req.body);
 
   sendResponse(res, {
@@ -95,8 +98,12 @@ const addEducation= catchAsync(async (req, res) => {
 });
 
 const updateEducation = catchAsync(async (req, res) => {
-  const {educationId,...updateEducation}= req.body;
-  const result = await UserServices.updateEducation(req.params.id, educationId, updateEducation);
+  const { educationId, ...updateEducation } = req.body;
+  const result = await UserServices.updateEducation(
+    req.params.id,
+    educationId,
+    updateEducation
+  );
 
   sendResponse(res, {
     success: true,
@@ -107,7 +114,7 @@ const updateEducation = catchAsync(async (req, res) => {
 });
 
 const deleteEducation = catchAsync(async (req, res) => {
-  const {educationId}= req.body;
+  const { educationId } = req.body;
   const result = await UserServices.deleteEducation(req.params.id, educationId);
 
   sendResponse(res, {
@@ -118,7 +125,7 @@ const deleteEducation = catchAsync(async (req, res) => {
   });
 });
 
-const addExperience= catchAsync(async (req, res) => {
+const addExperience = catchAsync(async (req, res) => {
   const result = await UserServices.addExperience(req.params.id, req.body);
 
   sendResponse(res, {
@@ -130,8 +137,12 @@ const addExperience= catchAsync(async (req, res) => {
 });
 
 const updateExperience = catchAsync(async (req, res) => {
-  const {experienceId,...updateExperience}= req.body;
-  const result = await UserServices.updateExperience(req.params.id, experienceId, updateExperience);
+  const { experienceId, ...updateExperience } = req.body;
+  const result = await UserServices.updateExperience(
+    req.params.id,
+    experienceId,
+    updateExperience
+  );
 
   sendResponse(res, {
     success: true,
@@ -142,8 +153,11 @@ const updateExperience = catchAsync(async (req, res) => {
 });
 
 const deleteExperience = catchAsync(async (req, res) => {
-  const {experienceId}= req.body;
-  const result = await UserServices.deleteExperience(req.params.id, experienceId);
+  const { experienceId } = req.body;
+  const result = await UserServices.deleteExperience(
+    req.params.id,
+    experienceId
+  );
 
   sendResponse(res, {
     success: true,
@@ -153,16 +167,13 @@ const deleteExperience = catchAsync(async (req, res) => {
   });
 });
 
-
-
-
 export const UserControllers = {
   getSingleUser,
   userRegister,
   getAllUsers,
   updateUser,
 
-  addSkills,  
+  addSkills,
   updateSkill,
   deleteSkill,
 
@@ -172,6 +183,5 @@ export const UserControllers = {
 
   addExperience,
   updateExperience,
-  deleteExperience
-  
+  deleteExperience,
 };
